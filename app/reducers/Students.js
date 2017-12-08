@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const GET_STUDENTS = 'GET_STUDENTS';
-const GET_STUDENT = 'GET_STUDENT';
+const CREATE_STUDENT = 'CREATE_STUDENT';
 const REMOVE_STUDENT = 'DELETE_STUDENT';
 const UPDATE_STUDENT = 'UPDATE_STUDENT'
 
@@ -10,8 +10,8 @@ export const getStudents = students => ({
     students,
 })
 
-export const getCampus = student=> ({
-    type: GET_STUDENT,
+export const create = student => ({
+    type: CREATE_STUDENT,
     student,
 })
 
@@ -27,17 +27,46 @@ export const update = id => ({
 
 export const fetchStudents = () => dispatch => {
     axios.get('/api/students')
-    .then(res => { 
-        dispatch(getStudents(res.data))})
-    .catch(err => console.error('could not get students', err))
+        .then(res => {
+            console.log(res)
+            dispatch(getStudents(res.data))
+        })
+        .catch(err => console.error('could not get students', err))
 }
+
+export const removeStudent = id => dispatch => {
+    dispatch(remove(id));
+    axios.delete(`/api/students/${id}`)
+         .catch(err => console.error(`could not remove ${id}`, err));
+  };
+  
+  export const addStudent = student => dispatch => {
+    axios.post('/api/students', student)
+         .then(res => dispatch(create(res.data)))
+         .catch(err => console.error(`could not create ${student}`, err));
+  };
+  
+  export const updateStudent = (id, student) => dispatch => {
+    axios.put(`/api/students/${id}`, student)
+         .then(res => dispatch(update(res.data)))
+         .catch(err => console.error(`could not update ${student}`, err));
+  };
+
 
 
 export default (students = [], action) => {
     switch (action.type) {
-      case GET_STUDENTS:
-        return action.students;
+        case GET_STUDENTS:
+            return action.students;
+        case REMOVE_STUDENT:
+            return students.filter(student => student.id !== action.id);
+        case UPDATE_STUDENT:
+            return students.map(student => (
+                action.student.id === student.id ? action.student : student
+            ))
+        case CREATE_STUDENT:
+            return [...students, action.students];
         default:
-        return students
+            return students
     }
 }

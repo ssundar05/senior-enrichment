@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import Home from './Home';
 import Campuses from './Campuses';
 import Students from './Students';
+import SingleCampus from './SingleCampus'
 import { fetchCampuses } from '../reducers/Campuses';
 import { fetchStudents } from '../reducers/Students';
 import Root from './Root';
@@ -23,7 +24,8 @@ class Routes extends Component {
               <Switch>
                 <Route exact path="/" component={Home} />
                 <Route exact path="/campuses" component={Campuses} />
-                <Route path="/students" component={Students} />
+                <Route path="/campuses/:id" component={SingleCampus} />
+                <Route exact path="/students" component={Students} />
                 <Route component={Home} />
               </Switch>
             </Root>

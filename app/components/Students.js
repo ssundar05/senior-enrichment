@@ -19,8 +19,8 @@ render(){
   return (
     <div>
     <ul>
-      <li> {this.props.students} </li>
-      </ul>
+      <li> hi</li>
+      </ul>   
      <h1> hi</h1>
 </div>
   )

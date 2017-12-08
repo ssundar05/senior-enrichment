@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import store from '../store';
 import { fetchCampuses } from '../reducers/Campuses';
 import { connect } from 'react-redux'
+import { Link } from 'react-router';
+import CampusItem from './CampusItem';
 
 const mapStateToProps = ({campuses}) => 
   ({ campuses })
@@ -19,9 +21,12 @@ render(){
   return (
     <div>
     <ul>
-      <li> {this.props.campuses} </li>
-      </ul>
-     <h1> hi</h1>
+    {this.props.campuses.map(campus =>
+     (
+      <CampusItem key={campus.id} campus={campus} />
+      )
+     )}
+    </ul>
 </div>
   )
 }
@@ -30,11 +35,9 @@ render(){
 
   
 
-
+ 
 const CampusesContainer = connect(mapStateToProps, mapDispatchToProps)(Campuses)
 
-export default CampusesContainer
+ export default CampusesContainer 
 
-// this.stata.map((campus => {
-//   return <li> {campus} </li>
-// }))
+
