@@ -23,7 +23,7 @@ export const update = campus => ({
     campus
 })
 
-export const create = id => ({
+export const create = campus => ({
     type: UPDATE_CAMPUS,
     campus
 })
@@ -73,7 +73,13 @@ export const fetchCampus = id => dispatch => {
   };
   
   export const updateCampus = (id, campus) => dispatch => {
+      console.log('HUDSHUE')
     axios.put(`/api/campuses/${id}`, campus)
-      .then(res => dispatch(update(res.data)))
+      .then(res => {
+          console.log(res)
+      dispatch(update(res.data)
+      )}
+    )
+    
       .catch(err => console.error(`Ucould not update ${campus}`, err));
   };

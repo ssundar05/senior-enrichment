@@ -7,29 +7,78 @@ import { connect } from 'react-redux'
 import _ from 'lodash';
 
 
-class SingleCampus extends React.Component {
+
+class SingleCampus extends Component {
     
-      constructor(props) {
-        super(props);
+      constructor() {
+        super();
+        this.handleUpdateCampus = this.handleUpdateCampus.bind(this)
+      }
+
+      handleUpdateCampus(event) {
+        event.preventDefault()
+        const id = Number(this.props.match.params.id);
+        const campus = event.target.campus.value
+        const image = event.target.campus.value
+        const description = event.target.description.value
+        const updated = {
+          id: id,
+            name: campus,
+            description: description,
+            imageUrl: image,
+        }
+         store.dispatch(updateCampus(id, updated))
       }
     
       render() {
-          const campusStudents = this.props.students.map(student => <li><h3>{student.fullName}</h3></li>)
+        if (!this.props.campus) return <div />
+          const { students, name} = this.props
+          const campusStudents = this.props.students.map(student => <li key = {student.id}><h3>{student.fullName}</h3></li>)
         return (
           <div>
-            
-              <h1>{this.props.campus.name} {console.log(this.props.students[0].fullName)} Students</h1>
+            {console.log(this.props.campus)}
+              <h1>{name} Students</h1>
               <ul> 
                 {campusStudents}
               </ul>
+              <div> {this.renderEditCampus()} </div>
             
           </div>
     
         );
       }
-    }
     
-
+    renderEditCampus(){
+     
+    
+      return (
+        <div>  
+        <form id = "editCampus" onSubmit={this.handleUpdateCampus}>
+          <div>
+            <input
+              type="text"
+              name="campus"
+              placeholder= {this.props.campus.name}
+            />
+               <input
+              type="text"
+              name="image"
+              placeholder={this.props.campus.imageUrl}
+            />
+                 <input
+              type="text"
+              name="description"
+              placeholder={this.props.campus.description}
+            />
+            <span>
+              <button  type="submit">Save Changes</button>
+            </span>
+          </div>
+        </form>
+        </div>
+      )
+    }
+  }
 
   
   

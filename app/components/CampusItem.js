@@ -41,10 +41,9 @@ class CampusItem extends Component
 
 
 handleDelete(event){
-    const { campus, removeCampus, removeStudent } = this.props
+    const { campus } = this.props
     event.stopPropagation();
-    console.log('hi')
-   removeCampus(campus.id);
+  removeCampus(campus.id);
   }
 }
 

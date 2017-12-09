@@ -19,8 +19,8 @@ router.get("/:campusId", (req, res, next) => {
 }
 )
 
-router.get("/:campusId", (req, res, next) => {
-    Campus.findById(req.params.campusId)
+router.get("/:id", (req, res, next) => {
+    Campus.findById(req.params.id)
     .then(campus => {
         res.json(campus)
     })
@@ -28,7 +28,7 @@ router.get("/:campusId", (req, res, next) => {
 }
 )
 
-router.post("/campus", (req, res, next) => {
+router.post("/campuses", (req, res, next) => {
     Campus.create(req.body)
     .then(campus => {
         res.json(campus)
@@ -37,8 +37,8 @@ router.post("/campus", (req, res, next) => {
 }
 )
 
-router.put("/campus/:campusId", (req, res, next) => {
-    Campus.findById(req.params.campusId)
+router.put("/:id", (req, res, next) => {
+    Campus.findById(req.params.id)
     .then(campus => {
        return campus.update(req.body)
     })
