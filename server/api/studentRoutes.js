@@ -10,7 +10,7 @@ router.get("/", (req, res, next) => {
     .catch(next)
 })
 
-router.get("/:studentId", (req, res, next) => {
+router.get("/:id", (req, res, next) => {
     Student.findById(req.params.studentId)
     .then(student => {
         res.json(student)
@@ -19,7 +19,7 @@ router.get("/:studentId", (req, res, next) => {
 }
 )
 
-router.get("/:studentId", (req, res, next) => {
+router.get("/:id", (req, res, next) => {
     Student.findById(req.params.studentId)
     .then(student => {
         res.json(student)
@@ -28,7 +28,7 @@ router.get("/:studentId", (req, res, next) => {
 }
 )
 
-router.post("/student", (req, res, next) => {
+router.post("/", (req, res, next) => {
     Student.create(req.body)
     .then(student => {
         res.json(student)
@@ -37,8 +37,9 @@ router.post("/student", (req, res, next) => {
 }
 )
 
-router.put("/student/:studentId", (req, res, next) => {
-    Student.findById(req.params.studentId)
+router.put("/:id", (req, res, next) => {
+    console.log('h')
+    Student.findById(req.params.id)
     .then(student => {
        return student.update(req.body)
     })
@@ -49,7 +50,7 @@ router.put("/student/:studentId", (req, res, next) => {
 }
 )
 
-router.delete("/student/:studentId", (req, res, next) => {
+router.delete("/:id", (req, res, next) => {
     Student.destroy({where: { id: req.params.id}
     })
     .then(updated =>

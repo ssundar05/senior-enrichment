@@ -28,7 +28,7 @@ router.get("/:id", (req, res, next) => {
 }
 )
 
-router.post("/campuses", (req, res, next) => {
+router.post("/", (req, res, next) => {
     Campus.create(req.body)
     .then(campus => {
         res.json(campus)
@@ -49,7 +49,7 @@ router.put("/:id", (req, res, next) => {
 }
 )
 
-router.delete("/campus/:campusId", (req, res, next) => {
+router.delete("/:id", (req, res, next) => {
     Campus.destroy({where: { id: req.params.id}
     })
     .then(updated =>

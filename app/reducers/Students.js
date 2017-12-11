@@ -22,13 +22,12 @@ export const remove = id => ({
 
 export const update = id => ({
     type: UPDATE_STUDENT,
-    id
+    id,
 })
 
 export const fetchStudents = () => dispatch => {
     axios.get('/api/students')
         .then(res => {
-            console.log(res)
             dispatch(getStudents(res.data))
         })
         .catch(err => console.error('could not get students', err))
@@ -41,12 +40,17 @@ export const removeStudent = id => dispatch => {
   };
   
   export const addStudent = student => dispatch => {
+      console.log('fff')
+      console.log(student)
     axios.post('/api/students', student)
-         .then(res => dispatch(create(res.data)))
+         .then(res => {
+            console.log('hjhj')
+            dispatch(create(res.data))})
          .catch(err => console.error(`could not create ${student}`, err));
   };
   
   export const updateStudent = (id, student) => dispatch => {
+      console.log('HEYHEY')
     axios.put(`/api/students/${id}`, student)
          .then(res => dispatch(update(res.data)))
          .catch(err => console.error(`could not update ${student}`, err));
@@ -62,10 +66,10 @@ export default (students = [], action) => {
             return students.filter(student => student.id !== action.id);
         case UPDATE_STUDENT:
             return students.map(student => (
-                action.student.id === student.id ? action.student : student
+                action.students.id === student.id ? action.student : student
             ))
         case CREATE_STUDENT:
-            return [...students, action.students];
+            return [...students, action.student];
         default:
             return students
     }

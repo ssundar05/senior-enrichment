@@ -24,7 +24,7 @@ export const update = campus => ({
 })
 
 export const create = campus => ({
-    type: UPDATE_CAMPUS,
+    type: CREATE_CAMPUS,
     campus
 })
 
@@ -40,7 +40,7 @@ export default (campuses = [], action) => {
             action.campus.id === campus.id ? action.campus : campus
           ))
     case CREATE_CAMPUS:
-        return [...campuses, action.campuses];
+        return [...campuses, action.campus];
     default:
         return campuses;
     }
@@ -48,7 +48,7 @@ export default (campuses = [], action) => {
 
 export const fetchCampuses = () => dispatch => {
     axios.get('/api/campuses')
-    .then(res => {  console.log(res)
+    .then(res => {  
         dispatch(getCampuses(res.data))})
     .catch(err => console.error('could not get campuses', err))
 }
@@ -60,7 +60,6 @@ export const fetchCampus = id => dispatch => {
   };
   
   export const removeCampus = id => dispatch => {
-   
     dispatch(remove(id));
     axios.delete(`/api/campuses/${id}`)
       .catch(err => console.error(`could not remove ${id}`, err));
@@ -68,18 +67,18 @@ export const fetchCampus = id => dispatch => {
   
   export const addCampus = campus => dispatch => {
     axios.post('/api/campuses/', campus)
-      .then(res => dispatch(create(res.data)))
+      .then(res => {
+          dispatch(create(res.data))
+      })
       .catch(err => console.error(`could not create ${campus}`, err));
   };
   
   export const updateCampus = (id, campus) => dispatch => {
-      console.log('HUDSHUE')
     axios.put(`/api/campuses/${id}`, campus)
       .then(res => {
-          console.log(res)
       dispatch(update(res.data)
       )}
     )
     
-      .catch(err => console.error(`Ucould not update ${campus}`, err));
+      .catch(err => console.error(`could not update ${campus}`, err));
   };

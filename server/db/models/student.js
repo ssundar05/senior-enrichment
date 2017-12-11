@@ -18,7 +18,7 @@ var Student = db.define("Student", {
         }
     }, 
     gpa: {
-        type: Sequelize.DECIMAL,
+        type: Sequelize.FLOAT,
         validate: {
             min: 0,
             max: 4
@@ -27,10 +27,9 @@ var Student = db.define("Student", {
     fullName: {
         type: Sequelize.VIRTUAL,
         get(){
-            return this.firstName + '' + this.lastName
+            return this.firstName + ' ' + this.lastName
         }
-    }
-
+    },
 })
 
 

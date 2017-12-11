@@ -8,7 +8,7 @@ class CampusItem extends Component
 {
       constructor (props) {
         super(props);
-        this.handleDelete = this.handleDelete.bind(this);
+      
       }
     render() {
         const {campus} = this.props
@@ -18,7 +18,7 @@ class CampusItem extends Component
               <div className="card">
               <Link to = {`/campuses/${campus.id}`}>
                 <div className="card-image">
-                  <img className="responsive-img" width='140' height= '140' src={campus.image}></img>
+                  <img className="responsive-img"  width='50' height= '50' src = {campus.imageUrl}></img>
                   <span className="card-title"></span>
                 </div>
                 <div className="card-content">
@@ -29,29 +29,21 @@ class CampusItem extends Component
                 </div>
                 </Link>
               </div>
-              <div>
-              <a className="btn-floating btn-large waves-effect waves-light red"
-               onClick = {this.handleDelete}><i className="material-icons">X</i></a>
-          </div>
             </div>
           </div>
          
         )
     }
+   
 
 
-handleDelete(event){
-    const { campus } = this.props
-    event.stopPropagation();
-  removeCampus(campus.id);
-  }
 }
 
 
 
 
-  const mapPropsToState = ({ students }) => ({ students })
+  const mapPropsToState = null
 
-  const mapDispatchToProps = {removeCampus, removeStudent }
+  const mapDispatchToProps = null
 
 export default connect(mapPropsToState, mapDispatchToProps)(CampusItem);

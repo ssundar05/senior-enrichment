@@ -27,3 +27,15 @@ width: 768px;
 #editCampus {
     background-color: grey
 }
+
+#createCampus{
+    background-color: grey
+}
+
+#addStudent{
+    background-color: grey
+}
+
+#singleCampusFooter{
+    position: fixed
+}
